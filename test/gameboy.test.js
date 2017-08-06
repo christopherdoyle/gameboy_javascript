@@ -17,7 +17,7 @@ describe('Gameboy', function() {
                       2,3,4,5,6,7,67,0];
     output = [] 
     for (let i = 0, l = input.length; i < l; i++) {
-      output[i] = opcode_ld_r1r2_lowbit_convert(input[i]);
+      output[i] = lowbit_convert(input[i]);
     }
     equal = true;
     for (let i = 0, l = output.length; i < l; i++) {
@@ -42,7 +42,7 @@ describe('Gameboy', function() {
                       0,0,0,0,0,0,0,0];
     output = [] 
     for (let i = 0, l = input.length; i < l; i++) {
-      output[i] = opcode_ld_r1r2_highbit_convert(input[i]);
+      output[i] = opcode_ld_r1r2.highbit_convert(input[i]);
     }
     equal = true;
     for (let i = 0, l = output.length; i < l; i++) {
