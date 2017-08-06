@@ -10,14 +10,14 @@ describe('Gameboy', function() {
     expect(hardware.get_full_registers(6) == 5050)
   });
 
-  it('opcode ld converter full test', function() {
+  it('opcode ld lowbit converter full test', function() {
     // 0x0 through to 0xF
     input = Array.apply(null, Array(16)).map(function (_, i) {return i;});
-    expectedoutput = [2,3,4,5,6,7,1,0,
-                      2,3,4,5,6,7,1,0];
+    expectedoutput = [2,3,4,5,6,7,67,0,
+                      2,3,4,5,6,7,67,0];
     output = [] 
     for (let i = 0, l = input.length; i < l; i++) {
-      output[i] = opcode_ld_r1r2_convert(input[i]);
+      output[i] = opcode_ld_r1r2_lowbit_convert(input[i]);
     }
     equal = true;
     for (let i = 0, l = output.length; i < l; i++) {
@@ -29,4 +29,41 @@ describe('Gameboy', function() {
     expect(equal === true);
   });
 
+  it('opcode ld highbit converter full test', function() {
+    // 0x0 through to 0xF
+    input = Array.apply(null, Array(64)).map(function (_, i) {return (64 + i);});
+    expectedoutput = [2,2,2,2,2,2,2,2,
+                      3,3,3,3,3,3,3,3,
+                      4,4,4,4,4,4,4,4,
+                      5,5,5,5,5,5,5,5,
+                      6,6,6,6,6,6,6,6,
+                      7,7,7,7,7,7,7,7,
+                      67,67,67,67,67,67,67,67,
+                      0,0,0,0,0,0,0,0];
+    output = [] 
+    for (let i = 0, l = input.length; i < l; i++) {
+      output[i] = opcode_ld_r1r2_highbit_convert(input[i]);
+    }
+    equal = true;
+    for (let i = 0, l = output.length; i < l; i++) {
+      if (output[i] != expectedoutput[i]) {
+        equal = false;
+        break;
+      }
+    }
+    expect(equal === true);
+  });
+ 
+
+  /*
+   * 40--47 = 64--71   = B    = 2
+   * 48--4F = 72--79   = C    = 3 
+   * 50--57 = 80--87   = D    = 4
+   * 58--5F = 88--95   = E    = 5
+   * 60--67 = 96--103  = H    = 6
+   * 68--6F = 104--111 = L    = 7
+   * 70--77 = 112-119  = (HL) = 67 (1)
+   * 78--7F = 120-127  = A    = 0
+   */
+  
 });
