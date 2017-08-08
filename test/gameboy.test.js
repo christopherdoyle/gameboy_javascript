@@ -2,12 +2,12 @@ describe('Gameboy', function() {
 
 	it('0x0e should increment PC', function() {
     opcode_map.get(0x0e)();
-    expect(hardware.cpu_registers[9] == 2);
+    expect(hardware.cpu_registers[9]).toBe(2);
   });
 
   it('set and get 16 bit registers', function() {
     hardware.set_full_registers(6, 5050);
-    expect(hardware.get_full_registers(6) == 5050);
+    expect(hardware.get_full_registers(6)).toBe(5050);
   });
 
   it('opcode ld lowbit converter full test', function() {
@@ -26,7 +26,7 @@ describe('Gameboy', function() {
         break;
       }
     }
-    expect(equal === true);
+    expect(equal).toBe(true);
   });
 
   it('opcode ld highbit converter full test', function() {
@@ -51,7 +51,7 @@ describe('Gameboy', function() {
         break;
       }
     }
-    expect(equal === true);
+    expect(equal).toBe(true);
   });
  
 
