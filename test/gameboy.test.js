@@ -7,7 +7,7 @@ describe('Gameboy', function() {
 
   it('set and get 16 bit registers', function() {
     hardware.set_full_registers(6, 5050);
-    expect(hardware.get_full_registers(6) == 5050)
+    expect(hardware.get_full_registers(6) == 5050);
   });
 
   it('opcode ld lowbit converter full test', function() {
@@ -15,7 +15,7 @@ describe('Gameboy', function() {
     input = Array.apply(null, Array(16)).map(function (_, i) {return i;});
     expectedoutput = [2,3,4,5,6,7,67,0,
                       2,3,4,5,6,7,67,0];
-    output = [] 
+    output = [];
     for (let i = 0, l = input.length; i < l; i++) {
       output[i] = lowbit_convert(input[i]);
     }
@@ -40,7 +40,7 @@ describe('Gameboy', function() {
                       7,7,7,7,7,7,7,7,
                       67,67,67,67,67,67,67,67,
                       0,0,0,0,0,0,0,0];
-    output = [] 
+    output = [];
     for (let i = 0, l = input.length; i < l; i++) {
       output[i] = opcode_ld_r1r2.highbit_convert(input[i]);
     }
